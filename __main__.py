@@ -67,7 +67,6 @@ with open(homepage_path, "w", encoding="utf8") as f:
     
 # Create a git commit message
 today = datetime.now().strftime("%d-%m-%Y")
-subprocess.run(["cd", current_path])
-subprocess.run(["git", "add", "public/*"])
-subprocess.run(["git", "commit", "-m", today])
-subprocess.run(["git", "push", "origin", "main"])
+subprocess.run(["git", "add", "public/*"], cwd=current_path)
+subprocess.run(["git", "commit", "-m", today], cwd=current_path)
+subprocess.run(["git", "push", "origin", "main"], cwd=current_path)

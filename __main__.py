@@ -1,5 +1,7 @@
+from datetime import datetime
 import os
 import tomllib
+import subprocess
 
 import single
 
@@ -62,3 +64,9 @@ with open(homepage_path, "w", encoding="utf8") as f:
         </body>
         </html>
         """)
+    
+# Create a git commit message
+today = datetime.now().strftime("%d-%m-%Y")
+subprocess.run(["git", "add", "public/*", f"Update feeds on {today}"])
+subprocess.run(["git", "commit", "-m", today])
+subprocess.run(["git", "push", "origin", "master"])

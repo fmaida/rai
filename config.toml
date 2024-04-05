@@ -1,0 +1,13 @@
+# Feed to download and transform into RSS podcast feeds
+
+[[feed]]
+url = "https://www.raiplaysound.it/programmi/trapocoinedicola"
+title = "Tra poco in edicola"
+
+[[feed]]
+url = "https://www.raiplaysound.it/programmi/lilloegreg610"
+title = "Lillo e Greg - 610"
+
+[[feed]]
+url = "https://www.raiplaysound.it/programmi/radioanchio"
+title = "Radio Anch'io"

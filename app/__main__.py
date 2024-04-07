@@ -49,33 +49,24 @@ for feed in feeds:
     #breakpoint()
 
 # Write a simple HTML page
-with open(homepage_path, "w", encoding="utf8") as f:
-    f.write(
-        """<!DOCTYPE html>
-        <html lang="en">
-        <head>
-        <title>Feeds</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">        
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"/>
-        </head>
-        <body>
-        <div class="container">
-        <h1>Feed List</h1>
-        <ul>
-        """)
-    for feed in feeds:
-        rss_file = feed["url"].split("/")[-1]
-        title = feed.get("title", rss_file)        
-        f.write(f'<li><a href="rss/{rss_file}.xml">{title}</a></li>')
-    f.write(
-        """
-        </ul>
-        </div>
-        </body>
-        </html>
-        """)
-repo.index.add(homepage_path)
+with open(homepage_path, "r", encoding="utf8") as f:
+    old_homepage = f.read()
+buffer="""
+    <!DOCTYPE html><html lang="en"><head><title>Feeds</title>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"/>
+    </head><body><div class="container"><h1>Feed List</h1><ul>
+    """
+for feed in feeds:
+    rss_file = feed["url"].split("/")[-1]
+    title = feed.get("title", rss_file)        
+    buffer += f'<li><a href="rss/{rss_file}.xml">{title}</a></li>'
+buffer += """</ul></div></body></html>"""
+
+if len(buffer) != len(old_homepage):
+    with open(homepage_path, "w", encoding="utf8") as f:
+        f.write(buffer)
+    repo.index.add(homepage_path)
 
 # Create a git commit message
 today = datetime.now().strftime("%d-%m-%Y %H:%M")

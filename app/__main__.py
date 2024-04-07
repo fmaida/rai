@@ -8,7 +8,7 @@ import single
 
 # Gets the current path
 current_path = os.path.dirname(
-    os.path.realpath(__file__))
+    os.path.realpath(__file__)).parent()
 public_path = os.path.join(current_path, "public")
 
 # Creates the public folder if it doesn't exist
